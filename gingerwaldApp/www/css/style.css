@@ -1,1 +1,25 @@
 /* Empty. Add your own CSS if you like */
+
+#login-background {
+  background: url("../img/backgroundLogin.jpeg");
+}
+
+#login-background-layer {
+  background-color: rgba(53, 41, 33, .6);
+}
+
+#login {
+  margin-top: 20%;
+}
+
+#login-logo {
+  margin-bottom: 10%;
+}
+
+#login-input {
+  width: 80%;
+}
+
+#login-button {
+  width: 75%;
+}

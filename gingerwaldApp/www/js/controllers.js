@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('gingerwald.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -53,4 +53,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+.controller('LoginCtrl', function($scope, $stateParams) {
+  $scope.doLogin = function() {
+    console.log('Doing login', $scope.loginData);
+  };
 });
