@@ -30,7 +30,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl'
   })
-  
+
     .state('app', {
     url: '/app',
     abstract: true,
@@ -38,11 +38,11 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.main', {
+    url: '/main',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/main.html'
       }
     }
   })
@@ -55,7 +55,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
         }
       }
     })
-  
+
   .state('app.playlists', {
       url: '/playlists',
       views: {
