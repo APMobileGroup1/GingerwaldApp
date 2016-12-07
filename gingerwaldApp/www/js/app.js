@@ -48,13 +48,9 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
     }
   })
 
-  .state('app.scan-a-nl', {
+  .state('scan-a-nl', {
       url: '/scan-a-nl',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/scan-a-nl.html'
-        }
-      }
+      templateUrl: 'templates/scan-a-nl.html'
     })
   
   .state('app.scan-a-l', {
