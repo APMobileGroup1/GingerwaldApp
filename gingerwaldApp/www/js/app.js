@@ -42,39 +42,48 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
     url: '/main',
     views: {
       'menuContent': {
-        templateUrl: 'templates/main.html'
+        templateUrl: 'templates/main.html',
+        controller: 'MainCtrl'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.scan-a-nl', {
+      url: '/scan-a-nl',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/scan-a-nl.html'
+        }
+      }
+    })
+  
+  .state('app.scan-a-l', {
+      url: '/scan-a-l',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/scan-a-l.html'
         }
       }
     })
 
-  .state('app.playlists', {
-      url: '/playlists',
+  .state('app.scan-b', {
+      url: '/scan-b',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/scan-b.html'
         }
       }
     })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+  
+  .state('app.dashboard', {
+      url: '/dashboard',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/dashboard.html'
+        }
       }
-    }
-  });
+    });
+  
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });
