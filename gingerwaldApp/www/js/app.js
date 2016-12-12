@@ -52,7 +52,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
       url: '/scan-a-nl',
       templateUrl: 'templates/scan-a-nl.html'
     })
-  
+
   .state('app.scan-a-l', {
       url: '/scan-a-l',
       views: {
@@ -70,7 +70,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
         }
       }
     })
-  
+
   .state('app.dashboard', {
       url: '/dashboard',
       views: {
@@ -79,7 +79,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
         }
       }
     });
-  
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 });
