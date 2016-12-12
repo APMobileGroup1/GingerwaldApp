@@ -41,6 +41,12 @@ angular.module('gingerwald.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $scope.info = function(){
+
+    swal("Oeps!", "Hier is nog niets te vinden. We zijn hard aan het werken op deze functie. Sit tight!", "warning");
+
+  }
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -63,6 +69,7 @@ angular.module('gingerwald.controllers', [])
     $scope.key = data.Login;
   })
 })
+
 
 .controller('LoginCtrl', function($scope, $stateParams) {
   $scope.doLogin = function() {
