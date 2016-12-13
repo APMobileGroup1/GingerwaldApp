@@ -4,6 +4,8 @@ This will the main repository for the Gingerwald Application. An application bui
 # Plugins
 To run this project succesfully, you need to install some plugins:
 
-Cordova Barcode Scanner 
+###Cordova Barcode Scanner 
 
-cordova plugin add https://github.com/wildabeast/BarcodeScanner.git
+Add the Cordova Barcode Scanner using following command line code:
+
+`cordova plugin add https://github.com/wildabeast/BarcodeScanner.git`
