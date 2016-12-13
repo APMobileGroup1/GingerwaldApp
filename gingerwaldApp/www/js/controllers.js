@@ -26,7 +26,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
  
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {
-            alert(imageData.text);
+            $scope.scanned = imageData.text;
             console.log("Barcode Format -> " + imageData.format);
             console.log("Cancelled -> " + imageData.cancelled);
         }, function(error) {
