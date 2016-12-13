@@ -23,9 +23,15 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 })
 
 .controller("QrCodeScanner", function($scope, $cordovaBarcodeScanner) {
- 
+    
+    var testURL = "http://qr.gingerwald.com?b=ee6sDR2K26xHUE";    
+    var regex = /[^=]*$/;
+  
+    $scope.scanned2 = regex.exec(testURL)[0];
+  
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {
+            
             $scope.scanned = imageData.text;
             console.log("Barcode Format -> " + imageData.format);
             console.log("Cancelled -> " + imageData.cancelled);
@@ -33,5 +39,8 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
             console.log("An error happened -> " + error);
         });
     };
+  
+    
+  
  
 });
