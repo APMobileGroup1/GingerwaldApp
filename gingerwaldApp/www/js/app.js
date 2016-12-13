@@ -27,8 +27,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'LoginCtrl'
+    templateUrl: 'templates/login.html'
   })
 
     .state('app', {
@@ -57,7 +56,8 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers'])
       url: '/scan-a-l',
       views: {
         'menuContent': {
-          templateUrl: 'templates/scan-a-l.html'
+          templateUrl: 'templates/scan-a-l.html',
+          controller: 'QrCodeScanner'
         }
       }
     })
