@@ -71,12 +71,10 @@ angular.module('gingerwald.controllers', [])
 })*/
 
 .controller('MainCtrl', function($scope, $http, $rootScope){
-  $scope.result="";
-  $rootScope.token="RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu";
 
-  $http.jsonp('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=' + $rootScope.token + '&callback=JSON_CALLBACK').success(function(data){
-    $scope.key = data.Login;
-    $scope.result=data;
+  $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu').success(function(data){
+    $scope.LoginKey = data.User.Login;
+    $scope.Credits= data.User.NumberCredits;
   })
 })
 
