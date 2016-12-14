@@ -63,10 +63,20 @@ angular.module('gingerwald.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('MainCtrl', function($scope, $http, $rootScope){
+/**.controller('MainCtrl', function($scope, $http, $rootScope){
   $rootScope.token="RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu"
   $http.jsonp('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=' + $rootScope.token + '&callback=JSON_CALLBACK').success(function(data){
     $scope.key = data.Login;
+  })
+})*/
+
+.controller('MainCtrl', function($scope, $http, $rootScope){
+  $scope.result="";
+  $rootScope.token="RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu";
+
+  $http.jsonp('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=' + $rootScope.token + '&callback=JSON_CALLBACK').success(function(data){
+    $scope.key = data.Login;
+    $scope.result=data;
   })
 })
 
