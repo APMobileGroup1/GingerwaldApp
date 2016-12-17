@@ -8,4 +8,4 @@ To run this project succesfully, you need to install some plugins:
 
 Add the Cordova Barcode Scanner using following command line code:
 
-`cordova plugin add https://github.com/wildabeast/BarcodeScanner.git`
+`cordova plugin add https://github.com/phonegap/phonegap-plugin-barcodescanner.git`
