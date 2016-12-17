@@ -25,25 +25,31 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 .controller("QrCodeScanner", function ($scope, $cordovaBarcodeScanner) {
 
-  var testURL = "http://qr.gingerwald.com?b=ee6sDR2K26xHUE";
-  var regex = /[^=]*$/;
+      var regex = /[^=]*$/;
+      var regex2 = /http:\/\/qr.gingerwald.com\?b=/;
 
-  $scope.scanned2 = regex.exec(testURL)[0];
-  $scope.scanned2 += "3";
+      $scope.scanBarcode = function () {
+        $cordovaBarcodeScanner.scan({
+          "showFlipCameraButton": true,
+          "showTorchButton": true,
+          "formats" : "QR_CODE",
+        }).then(function (imageData) {
+            console.log("Barcode Format -> " + imageData.format);
+            console.log("Cancelled -> " + imageData.cancelled);
+            if (regex2.test(imageData.text)) {
+              $scope.scannedCode = regex.exec(imageData.text)[0];
+            } else {
+              $scope.showAlert = function () {
+                var alertPopup = $ionicPopup.alert({
+                  title: 'Opgelet',
+                  template: 'Dit is geen QR-code van een Gingerwald flesje'
+                });
+              }
+            },
+            function (error) {
+              console.log("An error happened -> " + error);
+            });
+        };
 
-  $scope.scanBarcode = function () {
-    $cordovaBarcodeScanner.scan({
-      "showFlipCameraButton": true,
-      "showTorchButton": true
-    }).then(function (imageData) {
 
-      $scope.scanned = imageData.text;
-      console.log("Barcode Format -> " + imageData.format);
-      console.log("Cancelled -> " + imageData.cancelled);
-    }, function (error) {
-      console.log("An error happened -> " + error);
-    });
-  };
-
-
-});
+      });
