@@ -80,3 +80,13 @@
 #scan-guest {
   color: #FFFFFF;
 }
+
+#doughnut {
+  height:300px;
+  width:300px;
+}
+
+#detail-buttons {
+  width: 75%;
+  margin-bottom: 10%;
+}

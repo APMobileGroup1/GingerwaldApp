@@ -1,6 +1,18 @@
-
-  <ion-view>
-  <ion-content>
-    <h1>Dashboard</h1>
+  <ion-view id="main-background" class="container" ng-controller="DoughnutCtrl">
+  <ion-content scroll="false" id="main-background-layer">
+    <div id="main">
+      <center>
+        <div id="doughnut">
+          <canvas id="doughnut" class="chart chart-doughnut"
+            chart-data="data" chart-labels="labels">
+          </canvas>
+        </div>
+        <br/>
+        <div id="detail-buttons">
+          <button class="button button-block button-balanced">Ingedriënten</button>
+          <button class="button button-block button-balanced">Voedingsstoffen</a>
+        </div>
+      </center>
+    </div>
   </ion-content>
 </ion-view>
