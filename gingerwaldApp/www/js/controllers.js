@@ -1,4 +1,4 @@
-angular.module('gingerwald.controllers', [])
+angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -24,7 +24,6 @@ angular.module('gingerwald.controllers', [])
 })
 
 .controller("QrCodeScanner", function($scope, $cordovaBarcodeScanner) {
-
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {
             alert(imageData.text);
@@ -34,7 +33,7 @@ angular.module('gingerwald.controllers', [])
             console.log("An error happened -> " + error);
         });
     };
-
+  
 })
 
 .controller("DoughnutCtrl", function ($scope) {
