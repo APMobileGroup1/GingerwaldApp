@@ -16,10 +16,10 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 })
 
-.controller('MainCtrl', function ($scope, $http, $rootScope) {
-  $rootScope.token = "RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu";
-  $http.jsonp('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=' + $rootScope.token + '&callback=JSON_CALLBACK').success(function (data) {
-    $scope.key = data.Login;
+.controller('MainCtrl', function($scope, $http, $rootScope){
+    $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu').success(function(data){
+    $scope.LoginKey = data.User.Login;
+    $scope.Credits = data.User.NumberCredits
   })
 })
 
@@ -45,6 +45,9 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       console.log("An error happened -> " + error);
     });
   };
+});
 
-
+.controller("DoughnutCtrl", function ($scope) {
+  $scope.labels = ["Wortelen", "Spruiten", "Spinazie"];
+  $scope.data = [300, 500, 100];
 });
