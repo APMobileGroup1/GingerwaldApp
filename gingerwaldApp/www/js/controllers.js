@@ -31,7 +31,8 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   $scope.scanBarcode = function () {
     $cordovaBarcodeScanner.scan({
       "showFlipCameraButton": true,
-      "showTorchButton": true
+      "showTorchButton": true,
+      "formats" : "QR_CODE"
     }).then(function (imageData) {
       console.log("Barcode Format -> " + imageData.format);
       console.log("Cancelled -> " + imageData.cancelled);
