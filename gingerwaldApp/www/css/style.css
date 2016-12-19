@@ -24,6 +24,69 @@
   width: 75%;
 }
 
+.container {
+  width: 100%;
+  height: 100%;
+  background-image:url("../img/background_chalkboard_smartphone.png");
+  background-size: cover; /* or contain depending on what you want */
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align:center;
+  margin:auto;
+  padding:0;
+}
+
+#main {
+  margin-top: 20%;
+}
+
+#main-title {
+  color:white;
+}
+
+#main-text1 {
+  margin-top: 80px;
+  color:white;
+  display: inline-block;
+}
+
+#main-text2 {
+  color:white;
+  display: inline-block;
+}
+
+#circle {
+  width: 120px;
+  height: 120px;
+  /*webkit-border-radius: 75px;
+  -moz-border-radius: 75px;*/
+  border-radius: 75px;
+  background: white;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 4%;
+}
+
+#pic_special {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-bottom: auto;
+  position: center;
+  background-position-y: center;
+}
+
 #scan-guest {
   color: #FFFFFF;
+}
+
+#doughnut {
+  height:300px;
+  width:300px;
+}
+
+#detail-buttons {
+  width: 75%;
+  margin-bottom: 10%;
 }
