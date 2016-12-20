@@ -1,6 +1,10 @@
-<ion-view>
+<ion-view view-title="Scan flesje" class="container">
   <ion-content>
-    <h1>Scan A Logged In</h1>
-    <button class="button" ng-click="scanBarcode()">Scan plz</button>
+    Thank you for juicing the {{ JuiceName }}!
+    <img src="{{ JuiceImg }}" width="300"> {{ JuiceDescription }}
+    <center>
+      <a ng-click="ShowIngredients()" class="button button-block button-balanced" id="scan-button">Toon ingrediënten</a>
+      <a ng-click="AddToDash()" class="button button-block button-balanced" id="scan-button">Voeg toe aan dashboard</a>
+    </center>
   </ion-content>
 </ion-view>
