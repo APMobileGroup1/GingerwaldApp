@@ -25,6 +25,38 @@ angular.module('gingerwald.services', [])
         q.resolve(data.Juice);
       });
       return q.promise;
+    },
+    getJuiceIngredients: function (juiceID) {
+      var q = $q.defer();
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getJuiceIngredients.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=' + juiceID).
+      success(function (data, status, headers, config) {
+        q.resolve(data);
+      });
+      return q.promise;
+    },
+    getJuiceNutrients: function (juiceID) {
+      var q = $q.defer();
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getJuiceNutrients.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=' + juiceID).
+      success(function (data, status, headers, config) {
+        q.resolve(data);
+      });
+      return q.promise;
+    }
+  }
+}])
+
+
+
+.service("dashSrv", ['$http', '$q', function ($http, $q) {
+
+  return {
+    addToDash: function (scannedCode) {
+      var q = $q.defer();
+      var res = $http.post('https://www.gingerwald.com/community/v2.1/api/addBottleToDashboard.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&bottle_token=' + scannedCode);
+      res.success(function (data, status, headers, config) {
+        q.resolve(status);
+      });
+      return q.promise;
     }
   }
 }])

@@ -2,6 +2,8 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 .controller('AppCtrl', function ($scope, $http, $rootScope, $state, $ionicModal, $timeout, $cordovaBarcodeScanner, $location) {
 
+  $rootScope.scannedCode = 'ee6sDR2K26xHUE';
+
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -43,7 +45,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   })
 })
 
-.controller("QrCodeScanner", function ($scope, bottleSrv, juiceSrv, $http, $rootScope, $cordovaBarcodeScanner, $state) {
+.controller("QrCodeScanner", function ($scope, bottleSrv, juiceSrv, dashSrv, $http, $rootScope, $cordovaBarcodeScanner, $state, $ionicScrollDelegate) {
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;
     $scope.ExpirationDate = data.ExpirationDate;
@@ -53,10 +55,31 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       $scope.JuiceName = data.Name;
       $scope.JuiceDescription = data.Description;
     })
-    
-    
+
+    juiceSrv.getJuiceIngredients($scope.JuiceID).then(function (data) {
+      console.log(data);
+      $scope.JuiceIngredients = data;
+    })
+
+    juiceSrv.getJuiceNutrients($scope.JuiceID).then(function (data) {
+      console.log(data);
+      $scope.JuiceNutrients = data;
+    })
 
   });
+
+  $scope.addToDash = function () {
+    dashSrv.addToDash($rootScope.scannedCode).then(function (info) {
+      console.log("Added to dash!");
+      $state.go('app.scan-b');
+    });
+  };
+  
+  $scope.test = function() {
+    console.log("Test gerund");
+    $ionicScrollDelegate.scrollTop();
+    $ionicScrollDelegate.resize();
+  }
 })
 
 .controller("DoughnutCtrl", function ($scope) {
