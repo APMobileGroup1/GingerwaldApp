@@ -1,5 +1,3 @@
-/* Empty. Add your own CSS if you like */
-
 #login-background {
   background: url("../img/backgroundLogin.jpeg");
 }
@@ -35,33 +33,23 @@
   text-align:center;
   margin:auto;
   padding:0;
+  display: inline-block;
 }
 
 #main {
-  margin-top: 20%;
+  margin-top: 25%;
 }
 
-#main-title {
-  color:white;
-}
-
-#main-text1 {
-  margin-top: 80px;
-  color:white;
-  display: inline-block;
-}
-
-#main-text2 {
-  color:white;
-  display: inline-block;
+#main-text {
+  margin-top: 21%;
 }
 
 #circle {
   width: 120px;
   height: 120px;
-  /*webkit-border-radius: 75px;
-  -moz-border-radius: 75px;*/
-  border-radius: 75px;
+  -webkit-border-radius: 75px;
+  -moz-border-radius: 75px;
+  border-radius: 50%;
   background: white;
   display: inline-block;
   margin-left: auto;
@@ -75,7 +63,7 @@
   transform: translateY(-50%);
   margin-bottom: auto;
   position: center;
-  background-position-y: center;
+  background-position: center;
 }
 
 #scan-guest {
