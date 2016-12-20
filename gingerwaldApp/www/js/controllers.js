@@ -53,6 +53,8 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       $scope.JuiceName = data.Name;
       $scope.JuiceDescription = data.Description;
     })
+    
+    
 
   });
 })
