@@ -1,6 +1,6 @@
 {
   "name": "gingerwaldApp",
-  "app_id": "",
+  "app_id": "52efe1a9",
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"
