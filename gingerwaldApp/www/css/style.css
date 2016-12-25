@@ -83,3 +83,38 @@
 #scan-button {
   width: 75%;
 }
+
+
+#ingredients {
+  width: 75%;
+}
+
+#ingredients .left {
+  text-align: left;
+}
+#ingredients .right {
+  text-align: right;
+}
+
+
+#nutrients {
+  width: 90%;
+}
+
+#nutrients .left {
+  text-align: left;
+}
+#nutrients .right {
+  text-align: right;
+}
+
+#nutrients th {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+#ingredients th {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
