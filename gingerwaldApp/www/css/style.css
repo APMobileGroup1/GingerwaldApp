@@ -118,3 +118,13 @@
 #nutrients .right {
   text-align: right;
 }
+
+#nutrients th {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+#ingredients th {
+  font-weight: bold;
+  padding-bottom: 5px;
+}

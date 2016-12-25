@@ -1,5 +1,20 @@
 angular.module('gingerwald.services', [])
 
+
+.service("mainSrv", ['$http', '$q', function ($http, $q) {
+
+  return {
+    getMainInfo: function () {
+      var q = $q.defer();
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu').
+      success(function (data, status, headers, config) {
+        q.resolve(data.User);
+      });
+      return q.promise;
+    }
+  }
+}])
+
 .service("bottleSrv", ['$http', '$q', function ($http, $q) {
 
   return {
@@ -55,6 +70,9 @@ angular.module('gingerwald.services', [])
       var res = $http.post('https://www.gingerwald.com/community/v2.1/api/addBottleToDashboard.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&bottle_token=' + scannedCode);
       res.success(function (data, status, headers, config) {
         q.resolve(status);
+      })
+      .error(function(data, status) {
+        q.reject(data);
       });
       return q.promise;
     }

@@ -2,6 +2,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 .controller('AppCtrl', function ($scope, $http, $rootScope, $state, $ionicModal, $timeout, $cordovaBarcodeScanner, $location) {
 
+  // REMOVE THIS CODE IF YOU WANT TO SCAN A BOTTLE ON A REAL DEVICE
   $rootScope.scannedCode = 'ee6sDR2K26xHUE';
 
   // With the new view caching in Ionic, Controllers are only called
@@ -11,14 +12,14 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.info = function () {
+  $scope.notyet = function () {
     swal("Oeps!", "Hier is nog niets te vinden. We zijn hard aan het werken op deze functie. Sit tight!", "warning");
   }
 
-  var regex1 = /http:\/\/qr.gingerwald.com\?b=/;
-  var regex2 = /[^=]*$/;
-
   $scope.scanBarcode = function () {
+    var regex1 = /http:\/\/qr.gingerwald.com\?b=/;
+    var regex2 = /[^=]*$/;
+    
     $cordovaBarcodeScanner.scan({
       "showFlipCameraButton": true,
       "showTorchButton": true,
@@ -38,10 +39,10 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 })
 
-.controller('MainCtrl', function ($scope, $http, $rootScope, $location) {
-  $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu').success(function (data) {
-    $scope.LoginKey = data.User.Login;
-    $scope.Credits = data.User.NumberCredits
+.controller('MainCtrl', function ($scope, $http, $rootScope, mainSrv) {
+  mainSrv.getMainInfo().then(function (data) {
+    $scope.LoginKey = data.Login;
+    $scope.Credits = data.NumberCredits
   })
 })
 
@@ -57,26 +58,27 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
     })
 
     juiceSrv.getJuiceIngredients($scope.JuiceID).then(function (data) {
-      console.log(data);
       $scope.JuiceIngredients = data;
     })
 
     juiceSrv.getJuiceNutrients($scope.JuiceID).then(function (data) {
-      console.log(data);
       $scope.JuiceNutrients = data;
     })
-
   });
 
   $scope.addToDash = function () {
     dashSrv.addToDash($rootScope.scannedCode).then(function (info) {
-      console.log("Added to dash!");
-      $state.go('app.scan-b');
-    });
+        $state.go('app.scan-b');
+      })
+      .catch(function (e) {
+        if (e.error_description == "Bottle has already been appointed") {
+          swal("Oeps!", "Dit flesje is al eens toegevoegd aan een dashboard!", "warning");
+        }
+      });
   };
-  
-  $scope.test = function() {
-    console.log("Test gerund");
+
+  $scope.test = function () {
+    console.log("Test uitgevoerd");
     $ionicScrollDelegate.scrollTop();
     $ionicScrollDelegate.resize();
   }

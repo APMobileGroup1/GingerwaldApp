@@ -1,5 +1,6 @@
 <ion-view view-title="Scan flesje" class="container">
   <ion-content>
+    <br>
     Thank you for juicing the {{ JuiceName }}!
     <img src="{{ JuiceImg }}" width="300">
     <br> {{ JuiceDescription }}
@@ -7,15 +8,24 @@
     <br>
     <center>
       <table id="ingredients" ng-show="toggle">
+        <tr>
+          <th class="left">Ingrediënt</th>
+          <th class="right">Hoeveelheid per 100 ml</th>
+        </tr>
         <tr ng-repeat="ingredient in JuiceIngredients">
           <td class="left">{{ingredient.Ingredient.Name}}</td>
-          <td class="right">{{ingredient.Ingredient.Amount_g}}</td>
+          <td class="right">{{ingredient.Ingredient.Amount_g}} g</td>
         </tr>
       </table>
       <table id="nutrients" ng-hide="toggle">
+        <tr>
+          <th class="left">Voedingsstof</th>
+          <th class="right">Hoeveelheid per 100 ml</th>
+          <th class="right">% van referentie-hoeveelheid</th>
+        </tr>
         <tr ng-repeat="nutrient in JuiceNutrients">
           <td class="left">{{nutrient.Nutrient.Name}}</td>
-          <td class="right">{{nutrient.Nutrient.Amount_html}}</td>
+          <td class="right" ng-bind-html="nutrient.Nutrient.Amount_html"></td>
           <td class="right">{{(nutrient.Nutrient.PartOfRI * 100 | number:0)}} %</td>
         </tr>
       </table>
