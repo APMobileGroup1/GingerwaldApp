@@ -1,8 +1,7 @@
-<ion-view id="main-background" view-title="Main" class="container" hide-back-button="true">
+<ion-view id="main-background" view-title="Home" class="container" hide-back-button="true">
   <ion-content scroll="false" id="main-background-layer">
     <div id="main">
       <center>
-        <br/>
         <br/>
         <a ng-click="info()" />
         <div id="circle"><img id="pic_special" src="../img/proteins.png" height="55" width="55" /></div>
@@ -14,10 +13,12 @@
         <a href="#/app/scan-a-l" />
         <div id="circle"><img id="pic_special" src="../img/qr-code1.png" height="55" width="55" /></div>
         <a/>
-        <h2 id="main-text" class="container">Jouw Key: {{LoginKey}}</h2>
         <br/>
         <br/>
-        <h4 class="container">{{Credits}} Credits Over </h4>
+        <h2>Jouw Key:</h2>
+        <h2>{{LoginKey}}</h2>
+        <br/>
+        <h4>{{Credits}} Credit(s) Over</h4>
       </center>
     </div>
   </ion-content>
