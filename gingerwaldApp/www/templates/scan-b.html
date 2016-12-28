@@ -1,13 +1,30 @@
-<ion-view view-title="Scan flesje" class="container" >
+<ion-view view-title="Scan flesje" class="container">
   <ion-content>
-    <br>
-    <h3>Proficiat!</h3>
+    <h3 style='margin-top: 15px;'>Proficiat!</h3>
     <h4>De {{ JuiceName }} is toegevoegd aan je dashboard!</h4>
     <br>
-    <img src="{{ JuiceImg }}" width="300">
+    <img src="{{ JuiceImg }}" height="200">
     <center>
       <a href="#/app/dashboard" id="dash-button" class="button button-block button-balanced">Naar mijn dashboard!</a>
+      <br>
+      <!---
+      <h4>Deel je laatste shot met je vrienden!</h4>
+      <div style="font-size: 55px;">
+        <i class="fa fa-facebook-square"></i>
+        <i class="fa fa-twitter-square"></i>
+        <i class="fa fa-google-plus-square"></i>
+      </div> --->
+      <div class="wrapper-share-shot">
+        <div style="width: 80%; text-align: left; font-size: 19px; display: inline-block; vertical-align: middle;">Deel je laatste shot op Facebook!</div>
+        <i style="display: inline-block; vertical-align: middle; font-size: 60px;" class="fa fa-facebook-square"></i>
+      </div>
+      <br>
+      <h4>Beoordeel je shot</h4>
+      <div class="wrapper">
+        <a ng-click="info()" class="button button-block button-balanced feedback-button">Njammie</a>
+        <a ng-click="info()" class="button button-block button-energized feedback-button">Oké</a>
+        <a ng-click="info()" class="button button-block button-assertive feedback-button">Jakkes</a>
+      </div>
     </center>
-    Deel je laatste shot op Facebook!
   </ion-content>
 </ion-view>
