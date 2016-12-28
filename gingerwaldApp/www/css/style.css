@@ -37,11 +37,7 @@
 }
 
 #main {
-  margin-top: 25%;
-}
-
-#main-text {
-  margin-top: 21%;
+  margin-top: 10%;
 }
 
 #circle {
@@ -118,3 +114,10 @@
   padding-bottom: 5px;
 }
 
+h1, h2, h3, h4 {
+  color: #FFFFFF;
+}
+
+#dash-button {
+  width: 75%;
+}
