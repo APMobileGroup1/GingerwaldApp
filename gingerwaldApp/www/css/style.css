@@ -139,8 +139,22 @@ h1, h2, h3, h4 {
   width: 90%;
 }
 
-.wrapper-share-shot {
+#wrapper-share-shot {
   width: 75%;
+}
+
+#share-shot-text {
+  width: 80%; 
+  text-align: left; 
+  font-size: 19px; 
+  display: inline-block; 
+  vertical-align: middle;
+}
+
+#share-shot-button {
+  display: inline-block; 
+  vertical-align: middle; 
+  font-size: 60px;
 }
 
 .feedback-button {
