@@ -3,7 +3,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 .controller('AppCtrl', function ($scope, $http, $rootScope, $state, $ionicModal, $timeout, $cordovaBarcodeScanner, $location) {
 
   // REMOVE THIS CODE IF YOU WANT TO SCAN A BOTTLE ON A REAL DEVICE
-  $rootScope.scannedCode = 'ee6sDR2K26xHUE';
+  $rootScope.scannedCode = 'py6FkeikVFQGXb';
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.

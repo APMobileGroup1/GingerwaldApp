@@ -66,7 +66,8 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
       url: '/scan-b',
       views: {
         'menuContent': {
-          templateUrl: 'templates/scan-b.html'
+          templateUrl: 'templates/scan-b.html',
+          controller: 'QrCodeScanner'
         }
       }
     })
