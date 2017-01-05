@@ -1,0 +1,24 @@
+<ion-view view-title="Sapjes van de dag" class="container">
+  <ion-content scroll="false">
+    <ion-slides options="options" slider="data.slider">
+      <ion-slide-page>
+        <h2>{{ jotd1.Name }}</h2>
+        <img src="{{ JuiceImg1 }}" id="juiceImage">
+        <br>
+        <br> {{ jotd1.Description }}
+      </ion-slide-page>
+      <ion-slide-page>
+        <h2>{{ jotd2.Name }}</h2>
+        <img src="{{ JuiceImg2 }}" id="juiceImage">
+        <br>
+        <br> {{ jotd2.Description }}
+      </ion-slide-page>
+      <ion-slide-page>
+        <h2>{{ jotd3.Name }}</h2>
+        <img src="{{ JuiceImg3 }}" id="juiceImage">
+        <br>
+        <br> {{ jotd3.Description }}
+      </ion-slide-page>
+    </ion-slides>
+  </ion-content>
+</ion-view>

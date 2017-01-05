@@ -79,6 +79,16 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
           templateUrl: 'templates/dashboard.html'
         }
       }
+    })
+  
+  .state('app.jotd', {
+      url: '/jotd',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/jotd.html',
+          controller: 'JotdCtrl'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback

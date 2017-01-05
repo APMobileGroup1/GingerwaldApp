@@ -19,7 +19,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   $scope.scanBarcode = function () {
     var regex1 = /http:\/\/qr.gingerwald.com\?b=/;
     var regex2 = /[^=]*$/;
-    
+
     $cordovaBarcodeScanner.scan({
       "showFlipCameraButton": true,
       "showTorchButton": true,
@@ -82,6 +82,19 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
     $ionicScrollDelegate.scrollTop();
     $ionicScrollDelegate.resize();
   }
+})
+
+.controller('JotdCtrl', function ($scope, $http, $rootScope, $ionicSlideBoxDelegate, jotdSrv) {
+  jotdSrv.getJotd().then(function (data) {
+    $scope.jotd1 = data[0].Juice;
+    $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[0].Juice.ID;
+    $scope.jotd2 = data[1].Juice;
+    $scope.JuiceImg2 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[1].Juice.ID;
+    $scope.jotd3 = data[2].Juice;
+    $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[2].Juice.ID;
+  });
+
+
 })
 
 .controller("DoughnutCtrl", function ($scope) {

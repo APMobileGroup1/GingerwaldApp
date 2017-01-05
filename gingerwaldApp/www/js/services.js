@@ -60,6 +60,20 @@ angular.module('gingerwald.services', [])
   }
 }])
 
+.service("jotdSrv", ['$http', '$q', function ($http, $q) {
+
+  return {
+    getJotd: function () {
+      var q = $q.defer();
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getCurrentOffer.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu').
+      success(function (data, status, headers, config) {
+        q.resolve(data);
+      });
+      return q.promise;
+    }
+  }
+}])
+
 
 
 .service("dashSrv", ['$http', '$q', function ($http, $q) {
