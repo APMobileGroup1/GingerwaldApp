@@ -101,7 +101,7 @@ angular.module('gingerwald.services', [])
           password: 'gingerjuice',
           client_id: 'GingerwaldUserApp10',
           client_secret: '50YCh15H760ssK9x78GxvhS065dj8TtWewI4GvXezo9tqAu6YwsSYY8KDsApeXMT',
-          'callback': 'JSON_CALLBACK'
+          callback: 'JSON_CALLBACK'
         },
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
