@@ -19,7 +19,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   $scope.scanBarcode = function () {
     var regex1 = /http:\/\/qr.gingerwald.com\?b=/;
     var regex2 = /[^=]*$/;
-    
+
     $cordovaBarcodeScanner.scan({
       "showFlipCameraButton": true,
       "showTorchButton": true,
@@ -84,7 +84,17 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller("DoughnutCtrl", function ($scope) {
-  $scope.labels = ["Wortelen", "Spruiten", "Spinazie"];
-  $scope.data = [300, 500, 100];
+.controller("DoughnutCtrl", function ($scope, graphSrv) {
+  graphSrv.getIngredientNames().then(function(data){
+      $scope.labelsIngredients = data;
+    })
+  graphSrv.getIngredientData().then(function(data){
+      $scope.dataIngredients = data;
+    })
+  graphSrv.getNutrientNames().then(function(data){
+    $scope.labelNutrients = data;
+  })
+  graphSrv.getNutrientData().then(function(data){
+    $scope.dataNutrients = data;
+  })
 })
