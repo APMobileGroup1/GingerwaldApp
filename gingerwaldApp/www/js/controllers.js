@@ -46,6 +46,18 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   })
 })
 
+.controller('LoginCtrl', function ($scope, $http, $rootScope, loginSrv) {
+  $scope.data = {};
+  $scope.login = function() {
+    console.log("Log-in button clicked!");
+    console.log("Values: " + $scope.data.username + " " + $scope.data.password);
+    loginSrv.doLogin($scope.data.username, $scope.data.password).then(function (data) {
+      console.log("Data received!");
+      console.log(data);
+    });
+  }
+})
+
 .controller("QrCodeScanner", function ($scope, bottleSrv, juiceSrv, dashSrv, $http, $rootScope, $cordovaBarcodeScanner, $state, $ionicScrollDelegate) {
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;

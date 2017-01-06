@@ -1,16 +1,16 @@
 <ion-view id="login-background">
   <ion-content scroll="false" id="login-background-layer">
     <div id="login">
-      <form name="login-form" ng-submit="login()" action="#/app/main" >
+      <form name="login-form" ng-submit="login()">
         <center>
           <img id="login-logo" src="img/logoLogin.png" width=80%>
           <div id="login-input">
             <div class="list list-inset">
               <label class="item item-input">
-                <input type="text" placeholder="Gebruikersnaam">
+                <input type="text" ng-model="data.username" placeholder="Gebruikersnaam">
               </label>
               <label class="item item-input">
-                <input type="password" placeholder="Wachtwoord">
+                <input type="password" ng-model="data.password" placeholder="Wachtwoord">
               </label>
             </div>
           </div>

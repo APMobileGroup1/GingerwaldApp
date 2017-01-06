@@ -60,8 +60,6 @@ angular.module('gingerwald.services', [])
   }
 }])
 
-
-
 .service("dashSrv", ['$http', '$q', function ($http, $q) {
 
   return {
@@ -69,11 +67,52 @@ angular.module('gingerwald.services', [])
       var q = $q.defer();
       var res = $http.post('https://www.gingerwald.com/community/v2.1/api/addBottleToDashboard.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&bottle_token=' + scannedCode);
       res.success(function (data, status, headers, config) {
-        q.resolve(status);
-      })
-      .error(function(data, status) {
-        q.reject(data);
+          q.resolve(status);
+        })
+        .error(function (data, status) {
+          q.reject(data);
+        });
+      return q.promise;
+    }
+  }
+}])
+
+.service("loginSrv", ['$http', '$q', function ($http, $q) {
+
+  return {
+    doLogin: function (username, password) {
+      var q = $q.defer();
+      console.log("Ready to post!");
+      /*var res = $http({
+        url: 'https://www.gingerwald.com/community/v2.1/authorization/oauth/token.php',
+        method: "POST",
+        data: 'grant_type=password&username=plantijn001@gingerwald.be&password=gingerjuice&client_id=GingerwaldUserApp10&client_secret=50YCh15H760ssK9x78GxvhS065dj8TtWewI4GvXezo9tqAu6YwsSYY8KDsApeXMT',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });*/
+      /*var res = $http.jsonp('https://www.gingerwald.com/community/v2.1/authorization/oauth/token.php?grant_type=password&username=plantijn001@gingerwald.be&password=gingerjuice&client_id=GingerwaldUserApp10&client_secret=50YCh15H760ssK9x78GxvhS065dj8TtWewI4GvXezo9tqAu6YwsSYY8KDsApeXMT', {jsonpCallbackParam: 'callback'})*/
+      var res = $http({
+        method: 'JSONP',
+        url: 'https://www.gingerwald.com/community/v2.1/authorization/oauth/token.php',
+        params: {
+          grant_type: 'password',
+          username: 'plantijn001@gingerwald.be',
+          password: 'gingerjuice',
+          client_id: 'GingerwaldUserApp10',
+          client_secret: '50YCh15H760ssK9x78GxvhS065dj8TtWewI4GvXezo9tqAu6YwsSYY8KDsApeXMT',
+          'callback': 'JSON_CALLBACK'
+        },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
       });
+      res.success(function (data, status, headers, config) {
+          q.resolve(data);
+        })
+        .error(function (data, status) {
+          q.reject(data);
+        });
       return q.promise;
     }
   }
