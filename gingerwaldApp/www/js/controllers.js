@@ -84,8 +84,41 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller('JotdCtrl', function ($scope, $http, $rootScope, $ionicSlideBoxDelegate, jotdSrv) {
+.controller('JotdCtrl', function ($scope, $http, $rootScope, $ionicSlideBoxDelegate, jotdSrv, juiceSrv, $ionicModal) {
+  $ionicModal.fromTemplateUrl('templates/jotd-mi.html', {
+    scope: $scope,
+    animation: 'slide-in-up',
+  }).then(function (modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.openModal = function (index) {
+    $scope.modal.show();
+    
+    var JuiceID = JuiceData[index].Juice.ID;
+    
+    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + JuiceID;
+
+    juiceSrv.getJuiceDetails(JuiceID).then(function (data) {
+      $scope.JuiceName = data.Name;
+      $scope.JuiceDescription = data.Description;
+    })
+
+    juiceSrv.getJuiceIngredients(JuiceID).then(function (data) {
+      $scope.JuiceIngredients = data;
+    })
+
+    juiceSrv.getJuiceNutrients(JuiceID).then(function (data) {
+      $scope.JuiceNutrients = data;
+    })
+  };
+
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+
   jotdSrv.getJotd().then(function (data) {
+    JuiceData = data;
     $scope.jotd1 = data[0].Juice;
     $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[0].Juice.ID;
     $scope.jotd2 = data[1].Juice;
@@ -93,7 +126,6 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
     $scope.jotd3 = data[2].Juice;
     $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[2].Juice.ID;
   });
-
 
 })
 

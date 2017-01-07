@@ -193,3 +193,14 @@ h4 {
 #juiceImage {
   height: 250px;
 }
+
+#more-information {
+  width: 60%;
+  margin: 0px auto;
+}
+
+#mi-button-container {
+  position: fixed;
+  bottom: 40px;
+  width: 100%;
+}
