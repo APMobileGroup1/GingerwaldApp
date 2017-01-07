@@ -144,16 +144,16 @@ h1, h2, h3, h4 {
 }
 
 #share-shot-text {
-  width: 80%; 
-  text-align: left; 
-  font-size: 19px; 
-  display: inline-block; 
+  width: 80%;
+  text-align: left;
+  font-size: 19px;
+  display: inline-block;
   vertical-align: middle;
 }
 
 #share-shot-button {
-  display: inline-block; 
-  vertical-align: middle; 
+  display: inline-block;
+  vertical-align: middle;
   font-size: 60px;
 }
 
@@ -162,17 +162,22 @@ h1, h2, h3, h4 {
   display:inline-block;
 }
 
-#test1 { 
-    display: inline-block; 
+#test1 {
+    display: inline-block;
     vertical-align:middle;
-    border:solid black 1px; 
-    width: 300px; 
- } 
+    border:solid black 1px;
+    width: 300px;
+ }
 
-#test2 { 
-   display: inline-block; 
+#test2 {
+   display: inline-block;
    vertical-align:middle;
-   width: 300px; 
-   height: 300px; 
-   border: 1px solid #d1c7ac; 
+   width: 300px;
+   height: 300px;
+   border: 1px solid #d1c7ac;
+}
+
+#date-button {
+  width: 30%;
+  margin-left: 15%;
 }
