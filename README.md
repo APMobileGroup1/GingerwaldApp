@@ -13,4 +13,5 @@ Add the Cordova Barcode Scanner using following command line code in the project
 ###Ionic Datepicker
 
 Add the Ionic Datepicker using following command line code in the project folder:
+
 `bower install ionic-datepicker --save`
