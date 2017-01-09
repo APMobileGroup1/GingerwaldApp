@@ -19,7 +19,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   $scope.scanBarcode = function () {
     var regex1 = /http:\/\/qr.gingerwald.com\?b=/;
     var regex2 = /[^=]*$/;
-    
+
     $cordovaBarcodeScanner.scan({
       "showFlipCameraButton": true,
       "showTorchButton": true,
@@ -36,7 +36,33 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
     });
   };
 
+})
 
+.controller('LoginCtrl', function ($scope, $http, $rootScope, loginSrv, $state, $ionicViewSwitcher) {
+
+  // Function to set the Sweet-Alert confirm button to the green Gingerwald color
+  swal.setDefaults({
+    confirmButtonColor: '#8DAC52'
+  });
+
+  $scope.data = {};
+  $scope.login = function () {
+    loginSrv.doLogin($scope.data.username, $scope.data.password).then(function (data) {
+        console.log(data);
+        $rootScope.userToken = data.access_token;
+        $state.go('app.main');
+      })
+      .catch(function (e) {
+        $scope.data.password = "";
+        if (e.responseJSON.error_description == "Missing input parameters") {
+          swal("Fout", "Je hebt een of meerdere inlogvelden niet ingevuld.", "warning");
+        } else if (e.responseJSON.error_description == "Authorization failed") {
+          swal("Fout", "Deze inloggegevens kloppen niet. Probeer opnieuw.", "error");
+        } else {
+          swal("Fout", "Er is een of andere rare fout opgedoken: " + e.responseJSON.error_description, "error");
+        }
+      });
+  }
 })
 
 .controller('MainCtrl', function ($scope, $http, $rootScope, mainSrv) {
@@ -50,7 +76,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;
     $scope.ExpirationDate = data.ExpirationDate;
-    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data.JuiceID;
+    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID;
 
     juiceSrv.getJuiceDetails($scope.JuiceID).then(function (data) {
       $scope.JuiceName = data.Name;
