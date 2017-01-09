@@ -46,14 +46,18 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   })
 })
 
-.controller('LoginCtrl', function ($scope, $http, $rootScope, loginSrv) {
+.controller('LoginCtrl', function ($scope, $http, $rootScope, loginSrv, $state) {
   $scope.data = {};
   $scope.login = function() {
     console.log("Log-in button clicked!");
     console.log("Values: " + $scope.data.username + " " + $scope.data.password);
     loginSrv.doLogin($scope.data.username, $scope.data.password).then(function (data) {
-      console.log("Data received!");
       console.log(data);
+      $rootScope.userToken = data.access_token;
+      $state.go('app.main');
+    })
+    .catch(function (e) {
+      console.log(e);
     });
   }
 })
@@ -62,7 +66,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;
     $scope.ExpirationDate = data.ExpirationDate;
-    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data.JuiceID;
+    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID;
 
     juiceSrv.getJuiceDetails($scope.JuiceID).then(function (data) {
       $scope.JuiceName = data.Name;
