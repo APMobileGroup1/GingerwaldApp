@@ -88,16 +88,19 @@ angular.module('gingerwald.services', [])
         crossDomain: true,
         data: {
           grant_type: 'password',
-          username: 'plantijn010@gingerwald.be',
-          password: 'gingerjuice',
-          client_id: 'GingerwaldUserApp19',
-          client_secret: 'epFMriZAIgVMudP9wRIxIzRvt9IXkLNIQvRD6Oqe2UYQhHc6Jef4d7TS4JJhFbBa',
+          username: username,
+          password: password,
+          client_id: 'GingerwaldUserApp10',
+          client_secret: '50YCh15H760ssK9x78GxvhS065dj8TtWewI4GvXezo9tqAu6YwsSYY8KDsApeXMT',
           callback: 'JSON_CALLBACK'
         },
         contentType: 'application/x-www-form-urlencoded'
       });
       res.done(function (data) {
         q.resolve(data);
+      })
+      res.fail(function (error) {
+        q.reject(error);
       });
       return q.promise;
     }

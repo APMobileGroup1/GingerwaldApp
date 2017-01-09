@@ -176,3 +176,7 @@ h1, h2, h3, h4 {
    height: 300px; 
    border: 1px solid #d1c7ac; 
 }
+
+.sweet-alert fieldset input {
+display: none;
+}
