@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.services', 'chart.js'])
+angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.services', 'chart.js', 'ngSanitize'])
 
 .run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
@@ -27,7 +27,8 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html'
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
   })
 
     .state('app', {
@@ -66,7 +67,8 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
       url: '/scan-b',
       views: {
         'menuContent': {
-          templateUrl: 'templates/scan-b.html'
+          templateUrl: 'templates/scan-b.html',
+          controller: 'QrCodeScanner'
         }
       }
     })

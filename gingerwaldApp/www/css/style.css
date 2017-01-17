@@ -1,5 +1,3 @@
-/* Empty. Add your own CSS if you like */
-
 #login-background {
   background: url("../img/backgroundLogin.jpeg");
 }
@@ -35,33 +33,19 @@
   text-align:center;
   margin:auto;
   padding:0;
+  display: inline-block;
 }
 
 #main {
-  margin-top: 20%;
-}
-
-#main-title {
-  color:white;
-}
-
-#main-text1 {
-  margin-top: 80px;
-  color:white;
-  display: inline-block;
-}
-
-#main-text2 {
-  color:white;
-  display: inline-block;
+  margin-top: 10%;
 }
 
 #circle {
   width: 120px;
   height: 120px;
-  /*webkit-border-radius: 75px;
-  -moz-border-radius: 75px;*/
-  border-radius: 75px;
+  -webkit-border-radius: 75px;
+  -moz-border-radius: 75px;
+  border-radius: 50%;
   background: white;
   display: inline-block;
   margin-left: auto;
@@ -75,7 +59,7 @@
   transform: translateY(-50%);
   margin-bottom: auto;
   position: center;
-  background-position-y: center;
+  background-position: center;
 }
 
 #scan-guest {
@@ -94,4 +78,105 @@
 
 #scan-button {
   width: 75%;
+}
+
+
+#ingredients {
+  width: 75%;
+}
+
+#ingredients .left {
+  text-align: left;
+}
+#ingredients .right {
+  text-align: right;
+}
+
+
+#nutrients {
+  width: 90%;
+}
+
+#nutrients .left {
+  text-align: left;
+}
+#nutrients .right {
+  text-align: right;
+}
+
+#nutrients th {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+#ingredients th {
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+h1, h2, h3, h4 {
+  color: #FFFFFF;
+}
+
+#dash-button {
+  width: 75%;
+}
+
+.border {
+  font-size:45px;
+  padding:20px;
+  -webkit-border-radius:1100%;
+  -moz-border-radius:100%;
+  -o-border-radius:100%;
+  border-radius:100%;
+  border:4px solid #fff;
+  text-align:center;
+  display:table-cell;
+  vertical-align:middle;
+}
+
+.wrapper {
+  width: 90%;
+}
+
+#wrapper-share-shot {
+  width: 75%;
+}
+
+#share-shot-text {
+  width: 80%; 
+  text-align: left; 
+  font-size: 19px; 
+  display: inline-block; 
+  vertical-align: middle;
+}
+
+#share-shot-button {
+  display: inline-block; 
+  vertical-align: middle; 
+  font-size: 60px;
+}
+
+.feedback-button {
+  width: 32%;
+  display:inline-block;
+}
+
+#test1 { 
+    display: inline-block; 
+    vertical-align:middle;
+    border:solid black 1px; 
+    width: 300px; 
+ } 
+
+#test2 { 
+   display: inline-block; 
+   vertical-align:middle;
+   width: 300px; 
+   height: 300px; 
+   border: 1px solid #d1c7ac; 
+}
+
+.sweet-alert fieldset input {
+display: none;
 }

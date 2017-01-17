@@ -1,5 +1,23 @@
-<ion-view>
+<ion-view view-title="Scan flesje" class="container">
   <ion-content>
-    <h1>Scan B</h1>
+    <h3 style='margin-top: 15px;'>Proficiat!</h3>
+    <h4>De {{ JuiceName }} is toegevoegd aan je dashboard!</h4>
+    <br>
+    <img src="{{ JuiceImg }}" height="200">
+    <center>
+      <a href="#/app/dashboard" id="dash-button" class="button button-block button-balanced">Naar mijn dashboard!</a>
+      <br>
+      <div id="wrapper-share-shot">
+        <div id="share-shot-text">Deel je laatste shot op Facebook!</div>
+        <i id="share-shot-button" class="fa fa-facebook-square"></i>
+      </div>
+      <br>
+      <h4>Beoordeel je shot</h4>
+      <div class="wrapper">
+        <a ng-click="info()" class="button button-block button-balanced feedback-button">Njammie</a>
+        <a ng-click="info()" class="button button-block button-energized feedback-button">Oké</a>
+        <a ng-click="info()" class="button button-block button-assertive feedback-button">Jakkes</a>
+      </div>
+    </center>
   </ion-content>
 </ion-view>
