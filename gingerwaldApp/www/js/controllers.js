@@ -94,9 +94,9 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
   $scope.openModal = function (index) {
     $scope.modal.show();
-    
+
     var JuiceID = JuiceData[index].Juice.ID;
-    
+
     $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + JuiceID + "&image_quality=lores";
 
     juiceSrv.getJuiceDetails(JuiceID).then(function (data) {
@@ -118,14 +118,17 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   };
 
   jotdSrv.getJotd().then(function (data) {
-    JuiceData = data;
-    $scope.jotd1 = data[0].Juice;
-    $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[0].Juice.ID + "&image_quality=lores";
-    $scope.jotd2 = data[1].Juice;
-    $scope.JuiceImg2 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[1].Juice.ID + "&image_quality=lores";
-    $scope.jotd3 = data[2].Juice;
-    $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[2].Juice.ID + "&image_quality=lores";
-  });
+      JuiceData = data;
+      $scope.jotd1 = data[0].Juice;
+      $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[0].Juice.ID + "&image_quality=lores";
+      $scope.jotd2 = data[1].Juice;
+      $scope.JuiceImg2 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[1].Juice.ID + "&image_quality=lores";
+      $scope.jotd3 = data[2].Juice;
+      $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[2].Juice.ID + "&image_quality=lores";
+    })
+    .catch(function (e) {
+        swal("Oeps!", "Er is iets misgelopen!", "warning");
+    });
 
 })
 
