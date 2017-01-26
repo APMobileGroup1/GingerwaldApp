@@ -1,18 +1,29 @@
-  <ion-view id="main-background" class="container" ng-controller="DoughnutCtrl">
-  <ion-content scroll="false" id="main-background-layer">
-    <div id="main">
-      <center>
-        <div id="doughnut">
-          <canvas id="doughnut" class="chart chart-doughnut"
-            chart-data="data" chart-labels="labels">
-          </canvas>
-        </div>
-        <br/>
-        <div id="detail-buttons">
-          <button class="button button-block button-balanced">Ingedriënten</button>
-          <button class="button button-block button-balanced">Voedingsstoffen</a>
-        </div>
+<ion-view id="main-background" view-title="Mijn Dashboard"  class="container" ng-controller="DoughnutCtrl">
+ <ion-content scroll="false" id="main-background-layer">
+   <div id="main">
+       <ionic-datepicker ng-click="fromOpenDatePicker()">
+         <button class="button button-block button-balanced" class="wrapper" id="date-button1">Van: {{fromDatepickerObject.inputDate | date:'dd-MM-yyyy'}}</button>
+       </ionic-datepicker>
+       <ionic-datepicker ng-click="toOpenDatePicker()">
+          <button class="button button-block button-balanced" class="wrapper" id="date-button2">Tot: {{toDatepickerObject.inputDate | date:'dd-MM-yyyy'}}</button>
+       </ionic-datepicker>
+               <button class="button button-block button-balanced" class="wrapper" ng-click="showAll()" id="all-date-button">Toon alle data</button>
+       <center>
+         <h3 style='margin-top: 15px;' ng-hide="toggle">Geconsumeerde ingrediënten</h3>
+         <h3 style='margin-top: 15px;' ng-show="toggle">Geconsumeerde voedingsstoffen</h3>
+         <div id="doughnut">
+           <canvas id="ingr" ng-hide="toggle" class="chart chart-doughnut"
+             chart-data="dataIngredients" chart-labels="labelsIngredients">
+           </canvas>
+           <canvas id="ntr" ng-show="toggle" class="chart chart-doughnut"
+             chart-data="dataNutrients" chart-labels="labelNutrients">
+           </canvas>
+         </div>
+         <br/>
+         <button ng-click="toggle=!toggle;" class="button button-block button-balanced" id="scan-button">
+           <span ng-show="toggle">Toon ingrediënten</span>
+           <span ng-hide="toggle">Toon voedingsstoffen</span>
       </center>
-    </div>
-  </ion-content>
+   </div>
+ </ion-content>
 </ion-view>

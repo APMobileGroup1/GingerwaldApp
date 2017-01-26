@@ -38,7 +38,7 @@
 }
 
 #main {
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 #circle {
@@ -181,6 +181,7 @@ h4 {
   border: 1px solid #d1c7ac;
 }
 
+
 .swiper-pagination-bullet {
   background: #fff;
 }
@@ -203,4 +204,39 @@ h4 {
   position: fixed;
   bottom: 40px;
   width: 100%;
+
+#date-button1 {
+  width: 40%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+#date-button2 {
+  width: 40%;
+  display: inline-block;
+}
+
+#all-date-button {
+  width: 40%;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+#test1 { 
+    display: inline-block; 
+    vertical-align:middle;
+    border:solid black 1px; 
+    width: 300px; 
+ } 
+
+#test2 { 
+   display: inline-block; 
+   vertical-align:middle;
+   width: 300px; 
+   height: 300px; 
+   border: 1px solid #d1c7ac; 
+}
+
+.sweet-alert fieldset input {
+display: none;
 }

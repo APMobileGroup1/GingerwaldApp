@@ -36,7 +36,33 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
     });
   };
 
+})
 
+.controller('LoginCtrl', function ($scope, $http, $rootScope, loginSrv, $state, $ionicViewSwitcher) {
+
+  // Function to set the Sweet-Alert confirm button to the green Gingerwald color
+  swal.setDefaults({
+    confirmButtonColor: '#8DAC52'
+  });
+
+  $scope.data = {};
+  $scope.login = function () {
+    loginSrv.doLogin($scope.data.username, $scope.data.password).then(function (data) {
+        console.log(data);
+        $rootScope.userToken = data.access_token;
+        $state.go('app.main');
+      })
+      .catch(function (e) {
+        $scope.data.password = "";
+        if (e.responseJSON.error_description == "Missing input parameters") {
+          swal("Fout", "Je hebt een of meerdere inlogvelden niet ingevuld.", "warning");
+        } else if (e.responseJSON.error_description == "Authorization failed") {
+          swal("Fout", "Deze inloggegevens kloppen niet. Probeer opnieuw.", "error");
+        } else {
+          swal("Fout", "Er is een of andere rare fout opgedoken: " + e.responseJSON.error_description, "error");
+        }
+      });
+  }
 })
 
 .controller('MainCtrl', function ($scope, $http, $rootScope, mainSrv) {
@@ -50,7 +76,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;
     $scope.ExpirationDate = data.ExpirationDate;
-    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data.JuiceID + "&image_quality=lores";
+    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID + "&image_quality=lores";
 
     juiceSrv.getJuiceDetails($scope.JuiceID).then(function (data) {
       $scope.JuiceName = data.Name;
@@ -83,6 +109,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
     $ionicScrollDelegate.resize();
   }
 })
+
 
 .controller('JotdCtrl', function ($scope, $http, $rootScope, $ionicSlideBoxDelegate, jotdSrv, juiceSrv, $ionicModal) {
   $ionicModal.fromTemplateUrl('templates/jotd-mi.html', {
@@ -132,7 +159,91 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 })
 
-.controller("DoughnutCtrl", function ($scope) {
-  $scope.labels = ["Wortelen", "Spruiten", "Spinazie"];
-  $scope.data = [300, 500, 100];
+
+.controller("DoughnutCtrl", function ($scope, graphSrv, ionicDatePicker) {
+
+  var datePickerUpdate = function () {
+    graphSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
+      console.log(data);
+
+      // Get Ingredients
+      var labels = [];
+      var amounts = [];
+      console.log(data.Ingredients.length);
+      for (var i = 0; i < data.Ingredients.length; i++) {
+        labels.push(data.Ingredients[i].Ingredient.Name);
+        amounts.push(data.Ingredients[i].Ingredient.Amount_g)
+      }
+      $scope.labelsIngredients = labels;
+      $scope.dataIngredients = amounts;
+
+
+      // Get Nutrients
+      var labels = [];
+      var amounts = [];
+      console.log(data.Nutrients.length);
+      for (var i = 0; i < data.Nutrients.length; i++) {
+        labels.push(data.Nutrients[i].Nutrient.Name);
+        amounts.push(data.Nutrients[i].Nutrient.Amount_g)
+      }
+      $scope.labelsNutrients = labels;
+      $scope.dataNutrients = amounts;
+    })
+  };
+  
+  
+  $scope.showAll = function () {
+    $scope.fromDatepickerObject.inputDate = new Date(1970,00,01);
+    $scope.toDatepickerObject.inputDate = new Date();
+    datePickerUpdate();
+  };
+  
+
+  // From Datepicker
+  $scope.fromDatepickerObject = {
+    inputDate: new Date(), //Optional
+    callback: function (val) { //Mandatory
+      fromDatePickerCallback(val);
+    }
+  };
+
+  var fromDatePickerCallback = function (val) {
+    if (typeof (val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      console.log('Selected date is : ', val)
+      $scope.fromDatepickerObject.inputDate = new Date(val);
+      datePickerUpdate();
+    }
+  };
+
+  $scope.fromOpenDatePicker = function () {
+    ionicDatePicker.openDatePicker($scope.fromDatepickerObject);
+  }
+
+
+  // To Datepicker
+  $scope.toDatepickerObject = {
+    inputDate: new Date(), //Optional
+    callback: function (val) { //Mandatory
+      toDatePickerCallback(val);
+    }
+  };
+
+  $scope.toOpenDatePicker = function () {
+    ionicDatePicker.openDatePicker($scope.toDatepickerObject);
+  }
+
+  var toDatePickerCallback = function (val) {
+    if (typeof (val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      console.log('Selected date is : ', val)
+      $scope.toDatepickerObject.inputDate = new Date(val);
+      datePickerUpdate();
+    }
+  };
+
+  datePickerUpdate();
+
 })

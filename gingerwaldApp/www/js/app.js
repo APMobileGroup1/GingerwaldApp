@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.services', 'chart.js', 'ngSanitize'])
+angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.services', 'chart.js', 'ngSanitize', 'ionic-datepicker'])
 
 .run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
@@ -22,12 +22,13 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
   });
 })
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, ionicDatePickerProvider) {
   $stateProvider
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html'
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
   })
 
     .state('app', {
@@ -93,4 +94,22 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
+
+  
+  var datePickerObj = {
+    inputDate: new Date(),
+    setLabel: 'Selecteer',
+    todayLabel: 'Vandaag',
+    closeLabel: 'Sluit',
+    mondayFirst: true,
+    weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+    monthsList: ["Jan", "Feb", "Maa", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+    templateType: 'popup',
+    //from: new Date(2012, 8, 1),
+    //to: new Date(2018, 8, 1),
+    showTodayButton: true,
+    dateFormat: 'dd-MM-yyyy',
+    closeOnSelect: true,
+  };
+  ionicDatePickerProvider.configDatePicker(datePickerObj);
 });
