@@ -110,7 +110,90 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller("DoughnutCtrl", function ($scope) {
-  $scope.labels = ["Wortelen", "Spruiten", "Spinazie"];
-  $scope.data = [300, 500, 100];
+.controller("DoughnutCtrl", function ($scope, graphSrv, ionicDatePicker) {
+
+  var datePickerUpdate = function () {
+    graphSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
+      console.log(data);
+
+      // Get Ingredients
+      var labels = [];
+      var amounts = [];
+      console.log(data.Ingredients.length);
+      for (var i = 0; i < data.Ingredients.length; i++) {
+        labels.push(data.Ingredients[i].Ingredient.Name);
+        amounts.push(data.Ingredients[i].Ingredient.Amount_g)
+      }
+      $scope.labelsIngredients = labels;
+      $scope.dataIngredients = amounts;
+
+
+      // Get Nutrients
+      var labels = [];
+      var amounts = [];
+      console.log(data.Nutrients.length);
+      for (var i = 0; i < data.Nutrients.length; i++) {
+        labels.push(data.Nutrients[i].Nutrient.Name);
+        amounts.push(data.Nutrients[i].Nutrient.Amount_g)
+      }
+      $scope.labelsNutrients = labels;
+      $scope.dataNutrients = amounts;
+    })
+  };
+  
+  
+  $scope.showAll = function () {
+    $scope.fromDatepickerObject.inputDate = new Date(1970,00,01);
+    $scope.toDatepickerObject.inputDate = new Date();
+    datePickerUpdate();
+  };
+  
+
+  // From Datepicker
+  $scope.fromDatepickerObject = {
+    inputDate: new Date(), //Optional
+    callback: function (val) { //Mandatory
+      fromDatePickerCallback(val);
+    }
+  };
+
+  var fromDatePickerCallback = function (val) {
+    if (typeof (val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      console.log('Selected date is : ', val)
+      $scope.fromDatepickerObject.inputDate = new Date(val);
+      datePickerUpdate();
+    }
+  };
+
+  $scope.fromOpenDatePicker = function () {
+    ionicDatePicker.openDatePicker($scope.fromDatepickerObject);
+  }
+
+
+  // To Datepicker
+  $scope.toDatepickerObject = {
+    inputDate: new Date(), //Optional
+    callback: function (val) { //Mandatory
+      toDatePickerCallback(val);
+    }
+  };
+
+  $scope.toOpenDatePicker = function () {
+    ionicDatePicker.openDatePicker($scope.toDatepickerObject);
+  }
+
+  var toDatePickerCallback = function (val) {
+    if (typeof (val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      console.log('Selected date is : ', val)
+      $scope.toDatepickerObject.inputDate = new Date(val);
+      datePickerUpdate();
+    }
+  };
+
+  datePickerUpdate();
+
 })

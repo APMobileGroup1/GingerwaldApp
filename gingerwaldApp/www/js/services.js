@@ -60,6 +60,24 @@ angular.module('gingerwald.services', [])
   }
 }])
 
+.service("graphSrv", ['$http', '$q', function($http, $q){
+
+  return { 
+    getUserStats: function(dateFrom, dateTo) {
+      var q = $q.defer();
+      var dateFromReadable = dateFrom.getFullYear() + "-" + (dateFrom.getMonth() + 1) + "-" + dateFrom.getDate();
+      var dateToReadable = dateTo.getFullYear() + "-" + (dateTo.getMonth() + 1) + "-" + dateTo.getDate();
+      console.log(dateFromReadable);
+      console.log(dateToReadable);
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDashboard.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&report_from=' + dateFromReadable + '&report_to=' + dateToReadable)
+      .success(function(data, status, headers, config){
+        q.resolve(data);
+      });
+      return q.promise;
+    }
+  }
+}])
+
 .service("dashSrv", ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
 
   return {
