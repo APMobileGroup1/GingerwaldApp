@@ -1,0 +1,33 @@
+<ion-view view-title="Sapjes van de dag" class="container">
+  <ion-content scroll="false">
+    <ion-slides options="options" slider="data.slider">
+      <ion-slide-page>
+        <h2 style='margin-top: 15px;'>{{ jotd1.Name }}</h2>
+        <img src="{{ JuiceImg1 }}" id="juiceImage">
+        <br>
+        <br> {{ jotd1.Description }}
+        <div id="mi-button-container">
+          <a ng-click="openModal(0)" class="button button-block button-balanced" id="more-information">Meer informatie</a>
+        </div>
+      </ion-slide-page>
+      <ion-slide-page>
+        <h2 style='margin-top: 15px;'>{{ jotd2.Name }}</h2>
+        <img src="{{ JuiceImg2 }}" id="juiceImage">
+        <br>
+        <br> {{ jotd2.Description }}
+        <div id="mi-button-container">
+          <a ng-click="openModal(1)" class="button button-block button-balanced" id="more-information">Meer informatie</a>
+        </div>
+      </ion-slide-page>
+      <ion-slide-page>
+        <h2 style='margin-top: 15px;'>{{ jotd3.Name }}</h2>
+        <img src="{{ JuiceImg3 }}" id="juiceImage">
+        <br>
+        <br> {{ jotd3.Description }}
+        <div id="mi-button-container">
+          <a ng-click="openModal(2)" class="button button-block button-balanced" id="more-information">Meer informatie</a>
+        </div>
+      </ion-slide-page>
+    </ion-slides>
+  </ion-content>
+</ion-view>

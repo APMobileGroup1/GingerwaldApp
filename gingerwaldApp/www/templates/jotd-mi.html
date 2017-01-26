@@ -1,0 +1,44 @@
+<ion-modal-view class="container">
+  <ion-header-bar class="bar bar-header bar-balanced">
+    <h1 class="title">{{ JuiceName }}</h1>
+    <button class="button button-clear button-primary" ng-click="modal.hide()">Sluit</button>
+  </ion-header-bar>
+  <ion-content>
+    <br>
+    <img src="{{ JuiceImg }}" height="200">
+    <br>
+    <br>
+    {{ JuiceDescription }}
+    <br>
+    <br>
+    <center>
+      <table id="ingredients" ng-show="toggle">
+        <tr>
+          <th class="left">Ingrediënt</th>
+          <th class="right">Hoeveelheid per 100 ml</th>
+        </tr>
+        <tr ng-repeat="ingredient in JuiceIngredients">
+          <td class="left">{{ingredient.Ingredient.Name}}</td>
+          <td class="right">{{ingredient.Ingredient.Amount_g}} g</td>
+        </tr>
+      </table>
+      <table id="nutrients" ng-hide="toggle">
+        <tr>
+          <th class="left">Voedingsstof</th>
+          <th class="right">Hoeveelheid per 100 ml</th>
+          <th class="right">% van referentie-hoeveelheid</th>
+        </tr>
+        <tr ng-repeat="nutrient in JuiceNutrients">
+          <td class="left">{{nutrient.Nutrient.Name}}</td>
+          <td class="right" ng-bind-html="nutrient.Nutrient.Amount_html"></td>
+          <td class="right">{{(nutrient.Nutrient.PartOfRI * 100 | number:0)}} %</td>
+        </tr>
+      </table>
+      <br>
+      <button ng-click="toggle=!toggle;" class="button button-block button-balanced" id="scan-button">
+        <span ng-hide="toggle">Toon ingrediënten</span>
+        <span ng-show="toggle">Toon voedingsstoffen</span>
+      </button>
+    </center>
+  </ion-content>
+</ion-modal-view>

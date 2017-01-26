@@ -181,6 +181,30 @@ h4 {
   border: 1px solid #d1c7ac;
 }
 
+
+.swiper-pagination-bullet {
+  background: #fff;
+}
+
+.swiper-pagination-bullet-active {
+  background: #8DAC52;
+  opacity: 1;
+}
+
+#juiceImage {
+  height: 250px;
+}
+
+#more-information {
+  width: 60%;
+  margin: 0px auto;
+}
+
+#mi-button-container {
+  position: fixed;
+  bottom: 40px;
+  width: 100%;
+
 #date-button1 {
   width: 40%;
   display: inline-block;

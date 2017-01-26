@@ -1,6 +1,6 @@
 angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
-.controller('AppCtrl', function ($scope, $http, $rootScope, $state, $ionicModal, $timeout, $cordovaBarcodeScanner, $location) {
+.controller('AppCtrl', function ($scope, $http, $rootScope, $state, $timeout, $cordovaBarcodeScanner, $location) {
 
   // REMOVE THIS CODE IF YOU WANT TO SCAN A BOTTLE ON A REAL DEVICE
   $rootScope.scannedCode = 'py6FkeikVFQGXb';
@@ -76,7 +76,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;
     $scope.ExpirationDate = data.ExpirationDate;
-    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID;
+    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID + "&image_quality=lores";
 
     juiceSrv.getJuiceDetails($scope.JuiceID).then(function (data) {
       $scope.JuiceName = data.Name;
@@ -109,6 +109,56 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
     $ionicScrollDelegate.resize();
   }
 })
+
+
+.controller('JotdCtrl', function ($scope, $http, $rootScope, $ionicSlideBoxDelegate, jotdSrv, juiceSrv, $ionicModal) {
+  $ionicModal.fromTemplateUrl('templates/jotd-mi.html', {
+    scope: $scope,
+    animation: 'slide-in-up',
+  }).then(function (modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.openModal = function (index) {
+    $scope.modal.show();
+
+    var JuiceID = JuiceData[index].Juice.ID;
+
+    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + JuiceID + "&image_quality=lores";
+
+    juiceSrv.getJuiceDetails(JuiceID).then(function (data) {
+      $scope.JuiceName = data.Name;
+      $scope.JuiceDescription = data.Description;
+    })
+
+    juiceSrv.getJuiceIngredients(JuiceID).then(function (data) {
+      $scope.JuiceIngredients = data;
+    })
+
+    juiceSrv.getJuiceNutrients(JuiceID).then(function (data) {
+      $scope.JuiceNutrients = data;
+    })
+  };
+
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+
+  jotdSrv.getJotd().then(function (data) {
+      JuiceData = data;
+      $scope.jotd1 = data[0].Juice;
+      $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[0].Juice.ID + "&image_quality=lores";
+      $scope.jotd2 = data[1].Juice;
+      $scope.JuiceImg2 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[1].Juice.ID + "&image_quality=lores";
+      $scope.jotd3 = data[2].Juice;
+      $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[2].Juice.ID + "&image_quality=lores";
+    })
+    .catch(function (e) {
+        swal("Oeps!", "Er is iets misgelopen!", "warning");
+    });
+
+})
+
 
 .controller("DoughnutCtrl", function ($scope, graphSrv, ionicDatePicker) {
 
