@@ -197,3 +197,22 @@ h4 {
   margin-top: 5px;
   display: inline-block;
 }
+
+#test1 { 
+    display: inline-block; 
+    vertical-align:middle;
+    border:solid black 1px; 
+    width: 300px; 
+ } 
+
+#test2 { 
+   display: inline-block; 
+   vertical-align:middle;
+   width: 300px; 
+   height: 300px; 
+   border: 1px solid #d1c7ac; 
+}
+
+.sweet-alert fieldset input {
+display: none;
+}
