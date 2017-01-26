@@ -1,12 +1,12 @@
 angular.module('gingerwald.services', [])
 
 
-.service("mainSrv", ['$http', '$q', function ($http, $q) {
+.service("mainSrv", ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
 
   return {
     getMainInfo: function () {
       var q = $q.defer();
-      $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu').
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDetails.php?token=' + $rootScope.userToken).
       success(function (data, status, headers, config) {
         q.resolve(data.User);
       });
@@ -60,32 +60,13 @@ angular.module('gingerwald.services', [])
   }
 }])
 
-.service("jotdSrv", ['$http', '$q', function ($http, $q) {
+.service("jotdSrv", ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
 
   return {
     getJotd: function () {
       var q = $q.defer();
-      $http.get('https://www.gingerwald.com/community/v2.1/api/getCurrentOffer.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu').
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getCurrentOffer.php?token=' + $rootScope.userToken).
       success(function (data, status, headers, config) {
-        q.resolve(data);
-      });
-      return q.promise;
-    }
-  }
-}])
-
-
-.service("graphSrv", ['$http', '$q', function($http, $q){
-
-  return { 
-    getUserStats: function(dateFrom, dateTo) {
-      var q = $q.defer();
-      var dateFromReadable = dateFrom.getFullYear() + "-" + (dateFrom.getMonth() + 1) + "-" + dateFrom.getDate();
-      var dateToReadable = dateTo.getFullYear() + "-" + (dateTo.getMonth() + 1) + "-" + dateTo.getDate();
-      console.log(dateFromReadable);
-      console.log(dateToReadable);
-      $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDashboard.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&report_from=' + dateFromReadable + '&report_to=' + dateToReadable)
-      .success(function(data, status, headers, config){
         q.resolve(data);
       });
       return q.promise;
@@ -106,11 +87,24 @@ angular.module('gingerwald.services', [])
           q.reject(data);
         });
       return q.promise;
+    },
+    
+    getUserStats: function(dateFrom, dateTo) {
+      var q = $q.defer();
+      var dateFromReadable = dateFrom.getFullYear() + "-" + (dateFrom.getMonth() + 1) + "-" + dateFrom.getDate();
+      var dateToReadable = dateTo.getFullYear() + "-" + (dateTo.getMonth() + 1) + "-" + dateTo.getDate();
+      console.log(dateFromReadable);
+      console.log(dateToReadable);
+      $http.get('https://www.gingerwald.com/community/v2.1/api/getUserDashboard.php?token=' + $rootScope.userToken + '&report_from=' + dateFromReadable + '&report_to=' + dateToReadable)
+      .success(function(data, status, headers, config){
+        q.resolve(data);
+      });
+      return q.promise;
     }
   }
 }])
 
-.service("loginSrv", ['$http', '$q', function ($http, $q) {
+.service("loginSrv", ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
 
   return {
     doLogin: function (username, password) {

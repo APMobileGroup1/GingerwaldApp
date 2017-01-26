@@ -12,10 +12,12 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+  // Function not yet implemented alert
   $scope.notyet = function () {
     swal("Oeps!", "Hier is nog niets te vinden. We zijn hard aan het werken op deze functie. Sit tight!", "warning");
   }
 
+  // Cordova Scan Barcode
   $scope.scanBarcode = function () {
     var regex1 = /http:\/\/qr.gingerwald.com\?b=/;
     var regex2 = /[^=]*$/;
@@ -25,25 +27,24 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       "showTorchButton": true,
       "formats": "QR_CODE"
     }).then(function (imageData) {
+      console.log(imageData);
       if (regex1.test(imageData.text)) {
         $rootScope.scannedCode = regex2.exec(imageData.text)[0];
         $state.go('app.scan-a-l');
+      }
+      else if (imageData.cancelled == 1) {     
+        console.log("Scanning cancelled");
       } else {
-        $scope.scannedCode = "Dit is geen QR-Code van een Gingerwald flesje!";
+        swal("Oeps!", "Dit is geen QR-Code van een Gingerwald flesje!", "warning");
       }
     }, function (error) {
-      console.log("An error happened -> " + error);
+      swal("Oeps!", "Er is hier iets misgelopen! " + error, "error");
     });
   };
 
 })
 
 .controller('LoginCtrl', function ($scope, $http, $rootScope, loginSrv, $state, $ionicViewSwitcher) {
-
-  // Function to set the Sweet-Alert confirm button to the green Gingerwald color
-  swal.setDefaults({
-    confirmButtonColor: '#8DAC52'
-  });
 
   $scope.data = {};
   $scope.login = function () {
@@ -72,12 +73,14 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   })
 })
 
-.controller("QrCodeScanner", function ($scope, bottleSrv, juiceSrv, dashSrv, $http, $rootScope, $cordovaBarcodeScanner, $state, $ionicScrollDelegate) {
+.controller("ScanBottle", function ($scope, bottleSrv, juiceSrv, dashSrv, $http, $rootScope, $state, $ionicScrollDelegate) {
+  
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;
     $scope.ExpirationDate = data.ExpirationDate;
-    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID + "&image_quality=lores";
-
+    $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID + "";
+    //&image_quality=lores
+    
     juiceSrv.getJuiceDetails($scope.JuiceID).then(function (data) {
       $scope.JuiceName = data.Name;
       $scope.JuiceDescription = data.Description;
@@ -112,6 +115,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 
 .controller('JotdCtrl', function ($scope, $http, $rootScope, $ionicSlideBoxDelegate, jotdSrv, juiceSrv, $ionicModal) {
+  
   $ionicModal.fromTemplateUrl('templates/jotd-mi.html', {
     scope: $scope,
     animation: 'slide-in-up',
@@ -147,11 +151,13 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   jotdSrv.getJotd().then(function (data) {
       JuiceData = data;
       $scope.jotd1 = data[0].Juice;
-      $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[0].Juice.ID + "&image_quality=lores";
+      $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data[0].Juice.ID + "&image_quality=lores";
+    
       $scope.jotd2 = data[1].Juice;
-      $scope.JuiceImg2 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[1].Juice.ID + "&image_quality=lores";
+      $scope.JuiceImg2 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data[1].Juice.ID + "&image_quality=lores";
+    
       $scope.jotd3 = data[2].Juice;
-      $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=RDN8suCd9Unll6zThEiXvUViJiyrGH3bqa3gE7pQdSti1S7nwk6ekzA4MrGawBmu&juice_id=" + data[2].Juice.ID + "&image_quality=lores";
+      $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken +"&juice_id=" + data[2].Juice.ID + "&image_quality=lores";
     })
     .catch(function (e) {
         swal("Oeps!", "Er is iets misgelopen!", "warning");
@@ -160,34 +166,34 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 })
 
 
-.controller("DoughnutCtrl", function ($scope, graphSrv, ionicDatePicker) {
+.controller("DashboardCtrl", function ($scope, dashSrv, ionicDatePicker) {
 
   var datePickerUpdate = function () {
-    graphSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
+    dashSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
       console.log(data);
 
       // Get Ingredients
-      var labels = [];
-      var amounts = [];
+      var labelsI = [];
+      var amountsI = [];
       console.log(data.Ingredients.length);
       for (var i = 0; i < data.Ingredients.length; i++) {
-        labels.push(data.Ingredients[i].Ingredient.Name);
-        amounts.push(data.Ingredients[i].Ingredient.Amount_g)
+        labelsI.push(data.Ingredients[i].Ingredient.Name);
+        amountsI.push(data.Ingredients[i].Ingredient.Amount_g)
       }
-      $scope.labelsIngredients = labels;
-      $scope.dataIngredients = amounts;
+      $scope.labelsIngredients = labelsI;
+      $scope.dataIngredients = amountsI;
 
 
       // Get Nutrients
-      var labels = [];
-      var amounts = [];
+      var labelsN = [];
+      var amountsN = [];
       console.log(data.Nutrients.length);
       for (var i = 0; i < data.Nutrients.length; i++) {
-        labels.push(data.Nutrients[i].Nutrient.Name);
-        amounts.push(data.Nutrients[i].Nutrient.Amount_g)
+        labelsN.push(data.Nutrients[i].Nutrient.Name);
+        amountsN.push(data.Nutrients[i].Nutrient.Amount_g)
       }
-      $scope.labelsNutrients = labels;
-      $scope.dataNutrients = amounts;
+      $scope.labelsNutrients = labelsN;
+      $scope.dataNutrients = amountsN;
     })
   };
   
@@ -201,8 +207,8 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
   // From Datepicker
   $scope.fromDatepickerObject = {
-    inputDate: new Date(), //Optional
-    callback: function (val) { //Mandatory
+    inputDate: new Date(),
+    callback: function (val) {
       fromDatePickerCallback(val);
     }
   };
@@ -224,8 +230,8 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
   // To Datepicker
   $scope.toDatepickerObject = {
-    inputDate: new Date(), //Optional
-    callback: function (val) { //Mandatory
+    inputDate: new Date(),
+    callback: function (val) {
       toDatePickerCallback(val);
     }
   };
