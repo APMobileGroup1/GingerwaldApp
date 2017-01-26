@@ -84,20 +84,21 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
+  
   var datePickerObj = {
     inputDate: new Date(),
-    setLabel: 'Select',
-    todayLabel: 'Today',
-    closeLabel: 'Close',
+    setLabel: 'Selecteer',
+    todayLabel: 'Vandaag',
+    closeLabel: 'Sluit',
     mondayFirst: true,
     weeksList: ["S", "M", "T", "W", "T", "F", "S"],
-    monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
+    monthsList: ["Jan", "Feb", "Maa", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
     templateType: 'popup',
     //from: new Date(2012, 8, 1),
     //to: new Date(2018, 8, 1),
     showTodayButton: true,
-    dateFormat: 'yyyy-MM-dd',
-    closeOnSelect: false,
+    dateFormat: 'dd-MM-yyyy',
+    closeOnSelect: true,
   };
   ionicDatePickerProvider.configDatePicker(datePickerObj);
 });

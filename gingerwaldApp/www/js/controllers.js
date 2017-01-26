@@ -85,60 +85,89 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 })
 
 .controller("DoughnutCtrl", function ($scope, graphSrv, ionicDatePicker) {
-  graphSrv.getIngredientNames().then(function(data){
-      $scope.labelsIngredients = data;
-    })
-  graphSrv.getIngredientData().then(function(data){
-      $scope.dataIngredients = data;
-    })
-  graphSrv.getNutrientNames().then(function(data){
-    $scope.labelNutrients = data;
-  })
-  graphSrv.getNutrientData().then(function(data){
-    $scope.dataNutrients = data;
-  })
 
+  var datePickerUpdate = function () {
+    graphSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
+      console.log(data);
+
+      // Get Ingredients
+      var labels = [];
+      var amounts = [];
+      console.log(data.Ingredients.length);
+      for (var i = 0; i < data.Ingredients.length; i++) {
+        labels.push(data.Ingredients[i].Ingredient.Name);
+        amounts.push(data.Ingredients[i].Ingredient.Amount_g)
+      }
+      $scope.labelsIngredients = labels;
+      $scope.dataIngredients = amounts;
+
+
+      // Get Nutrients
+      var labels = [];
+      var amounts = [];
+      console.log(data.Nutrients.length);
+      for (var i = 0; i < data.Nutrients.length; i++) {
+        labels.push(data.Nutrients[i].Nutrient.Name);
+        amounts.push(data.Nutrients[i].Nutrient.Amount_g)
+      }
+      $scope.labelsNutrients = labels;
+      $scope.dataNutrients = amounts;
+    })
+  };
+  
+  
+  $scope.showAll = function () {
+    $scope.fromDatepickerObject.inputDate = new Date(1970,00,01);
+    $scope.toDatepickerObject.inputDate = new Date();
+    datePickerUpdate();
+  };
+  
+
+  // From Datepicker
   $scope.fromDatepickerObject = {
-    inputDate: new Date(),  //Optional
-    closeOnSelect: false,       //Optional
-    templateType: 'popup',       //Optional
-    callback: function (val) {  //Mandatory
-        datePickerCallback(val);
+    inputDate: new Date(), //Optional
+    callback: function (val) { //Mandatory
+      fromDatePickerCallback(val);
     }
   };
 
-  var toDatePickerCallback = function (val) {
-    if (typeof(val) === 'undefined') {
+  var fromDatePickerCallback = function (val) {
+    if (typeof (val) === 'undefined') {
       console.log('No date selected');
     } else {
       console.log('Selected date is : ', val)
-      $scope.fromDatepickerObject.inputDate = val;
+      $scope.fromDatepickerObject.inputDate = new Date(val);
+      datePickerUpdate();
     }
   };
 
-  $scope.fromOpenDatePicker = function(){
+  $scope.fromOpenDatePicker = function () {
     ionicDatePicker.openDatePicker($scope.fromDatepickerObject);
   }
 
+
+  // To Datepicker
   $scope.toDatepickerObject = {
-    inputDate: new Date(),  //Optional
-    closeOnSelect: false,       //Optional
-    templateType: 'popup',       //Optional
-    callback: function (val) {  //Mandatory
-        toDatePickerCallback(val);
+    inputDate: new Date(), //Optional
+    callback: function (val) { //Mandatory
+      toDatePickerCallback(val);
     }
   };
 
+  $scope.toOpenDatePicker = function () {
+    ionicDatePicker.openDatePicker($scope.toDatepickerObject);
+  }
+
   var toDatePickerCallback = function (val) {
-    if (typeof(val) === 'undefined') {
+    if (typeof (val) === 'undefined') {
       console.log('No date selected');
     } else {
       console.log('Selected date is : ', val)
-      $scope.toDatepickerObject.inputDate = val;
+      $scope.toDatepickerObject.inputDate = new Date(val);
+      datePickerUpdate();
     }
   };
 
-  $scope.toOpenDatePicker = function(){
-    ionicDatePicker.openDatePicker($scope.toDatepickerObject);
-  }
+  datePickerUpdate();
+
 })
