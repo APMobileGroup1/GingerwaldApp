@@ -25,13 +25,13 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
 .config(function ($stateProvider, $urlRouterProvider, ionicDatePickerProvider) {
   $stateProvider
 
-  .state('login', {
+    .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl'
   })
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -49,53 +49,54 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
   })
 
   .state('scan-a-nl', {
-      url: '/scan-a-nl',
-      templateUrl: 'templates/scan-a-nl.html'
-    })
+    url: '/scan-a-nl',
+    templateUrl: 'templates/scan-a-nl.html'
+  })
 
   .state('app.scan-a-l', {
-      url: '/scan-a-l',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/scan-a-l.html',
-          controller: 'QrCodeScanner'
-        }
+    url: '/scan-a-l',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/scan-a-l.html',
+        controller: 'ScanBottleCtrl'
       }
-    })
+    }
+  })
 
   .state('app.scan-b', {
-      url: '/scan-b',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/scan-b.html',
-          controller: 'QrCodeScanner'
-        }
+    url: '/scan-b',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/scan-b.html',
+        controller: 'ScanBottleCtrl'
       }
-    })
+    }
+  })
 
   .state('app.dashboard', {
-      url: '/dashboard',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/dashboard.html'
-        }
+    url: '/dashboard',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/dashboard.html',
+        controller: 'DashboardCtrl'
       }
-    })
-  
+    }
+  })
+
   .state('app.jotd', {
-      url: '/jotd',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/jotd.html',
-          controller: 'JotdCtrl'
-        }
+    url: '/jotd',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/jotd.html',
+        controller: 'JotdCtrl'
       }
-    });
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
-  
+
   var datePickerObj = {
     inputDate: new Date(),
     setLabel: 'Selecteer',
@@ -112,4 +113,8 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
     closeOnSelect: true,
   };
   ionicDatePickerProvider.configDatePicker(datePickerObj);
+
+  swal.setDefaults({
+    confirmButtonColor: '#8DAC52'
+  });
 });
