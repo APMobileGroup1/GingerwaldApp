@@ -3,7 +3,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 .controller('AppCtrl', function ($scope, $http, $rootScope, $state, $timeout, $cordovaBarcodeScanner, $location) {
 
   // REMOVE THIS CODE IF YOU WANT TO SCAN A BOTTLE ON A REAL DEVICE
-  $rootScope.scannedCode = 'py6FkeikVFQGXb';
+  $rootScope.scannedCode = 'fBhHYlTbmUKNih';
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -31,8 +31,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       if (regex1.test(imageData.text)) {
         $rootScope.scannedCode = regex2.exec(imageData.text)[0];
         $state.go('app.scan-a-l');
-      }
-      else if (imageData.cancelled == 1) {     
+      } else if (imageData.cancelled == 1) {
         console.log("Scanning cancelled");
       } else {
         swal("Oeps!", "Dit is geen QR-Code van een Gingerwald flesje!", "warning");
@@ -73,14 +72,14 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   })
 })
 
-.controller("ScanBottle", function ($scope, bottleSrv, juiceSrv, dashSrv, $http, $rootScope, $state, $ionicScrollDelegate) {
-  
+.controller("ScanBottleCtrl", function ($scope, bottleSrv, juiceSrv, dashSrv, $http, $rootScope, $state, $ionicScrollDelegate, $ionicHistory) {
+
   bottleSrv.getBottleDetails($rootScope.scannedCode).then(function (data) {
     $scope.JuiceID = data.JuiceID;
     $scope.ExpirationDate = data.ExpirationDate;
     $scope.JuiceImg = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data.JuiceID + "";
     //&image_quality=lores
-    
+
     juiceSrv.getJuiceDetails($scope.JuiceID).then(function (data) {
       $scope.JuiceName = data.Name;
       $scope.JuiceDescription = data.Description;
@@ -94,6 +93,13 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       $scope.JuiceNutrients = data;
     })
   });
+
+  $scope.goToDash = function () {
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
+    $state.go('app.dashboard');
+  }
 
   $scope.addToDash = function () {
     dashSrv.addToDash($rootScope.scannedCode).then(function (info) {
@@ -115,7 +121,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 
 .controller('JotdCtrl', function ($scope, $http, $rootScope, $ionicSlideBoxDelegate, jotdSrv, juiceSrv, $ionicModal) {
-  
+
   $ionicModal.fromTemplateUrl('templates/jotd-mi.html', {
     scope: $scope,
     animation: 'slide-in-up',
@@ -152,22 +158,22 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       JuiceData = data;
       $scope.jotd1 = data[0].Juice;
       $scope.JuiceImg1 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data[0].Juice.ID + "&image_quality=lores";
-    
+
       $scope.jotd2 = data[1].Juice;
       $scope.JuiceImg2 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data[1].Juice.ID + "&image_quality=lores";
-    
+
       $scope.jotd3 = data[2].Juice;
-      $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken +"&juice_id=" + data[2].Juice.ID + "&image_quality=lores";
+      $scope.JuiceImg3 = "https://gingerwald.com/community/v2.1/api/getJuicePicture.php?token=" + $rootScope.userToken + "&juice_id=" + data[2].Juice.ID + "&image_quality=lores";
     })
     .catch(function (e) {
-        swal("Oeps!", "Er is iets misgelopen!", "warning");
+      swal("Oeps!", "Er is iets misgelopen!", "warning");
     });
 
 })
 
 
-.controller("DashboardCtrl", function ($scope, dashSrv, ionicDatePicker) {
-
+.controller("DashboardCtrl", function ($scope, dashSrv, ionicDatePicker, $ionicNavBarDelegate, $ionicHistory) {
+ 
   var datePickerUpdate = function () {
     dashSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
       console.log(data);
@@ -196,14 +202,14 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
       $scope.dataNutrients = amountsN;
     })
   };
-  
-  
+
+
   $scope.showAll = function () {
-    $scope.fromDatepickerObject.inputDate = new Date(1970,00,01);
+    $scope.fromDatepickerObject.inputDate = new Date(1970, 00, 01);
     $scope.toDatepickerObject.inputDate = new Date();
     datePickerUpdate();
   };
-  
+
 
   // From Datepicker
   $scope.fromDatepickerObject = {

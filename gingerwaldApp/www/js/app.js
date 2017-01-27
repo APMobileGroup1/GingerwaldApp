@@ -58,7 +58,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
     views: {
       'menuContent': {
         templateUrl: 'templates/scan-a-l.html',
-        controller: 'ScanBottle'
+        controller: 'ScanBottleCtrl'
       }
     }
   })
@@ -68,7 +68,7 @@ angular.module('gingerwald', ['ionic', 'gingerwald.controllers', 'gingerwald.ser
     views: {
       'menuContent': {
         templateUrl: 'templates/scan-b.html',
-        controller: 'ScanBottle'
+        controller: 'ScanBottleCtrl'
       }
     }
   })
