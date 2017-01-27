@@ -3,7 +3,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 .controller('AppCtrl', function ($scope, $http, $rootScope, $state, $timeout, $cordovaBarcodeScanner, $location) {
 
   // REMOVE THIS CODE IF YOU WANT TO SCAN A BOTTLE ON A REAL DEVICE
-  $rootScope.scannedCode = 'fBhHYlTbmUKNih';
+  //$rootScope.scannedCode = 'fBhHYlTbmUKNih';
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -65,11 +65,20 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   }
 })
 
-.controller('MainCtrl', function ($scope, $http, $rootScope, mainSrv) {
+.controller('MainCtrl', function ($scope, $http, $rootScope, mainSrv, $state) {
   mainSrv.getMainInfo().then(function (data) {
     $scope.LoginKey = data.Login;
     $scope.Credits = data.NumberCredits
   })
+
+  $scope.goToDash = function () {
+    $state.go('app.dashboard');
+  }
+  
+    $scope.goToJotd = function () {
+    $state.go('app.jotd');
+  }
+
 })
 
 .controller("ScanBottleCtrl", function ($scope, bottleSrv, juiceSrv, dashSrv, $http, $rootScope, $state, $ionicScrollDelegate, $ionicHistory) {
@@ -173,7 +182,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
 
 
 .controller("DashboardCtrl", function ($scope, dashSrv, ionicDatePicker, $ionicNavBarDelegate, $ionicHistory) {
- 
+
   var datePickerUpdate = function () {
     dashSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
       console.log(data);

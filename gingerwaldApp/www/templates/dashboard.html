@@ -10,7 +10,7 @@
         <button class="button button-block button-balanced" class="wrapper" id="date-button2">Tot: {{toDatepickerObject.inputDate | date:'dd-MM-yyyy'}}</button>
       </ionic-datepicker>
       <button class="button button-block button-balanced" class="wrapper" ng-click="showAll()" id="all-date-button">Toon alle data</button>
-      <br/>
+      <br/><br/>
       <center>
         <div id="doughnut">
           <canvas id="ingr" ng-hide="toggle" class="chart chart-doughnut" chart-data="dataIngredients" chart-labels="labelsIngredients">
@@ -19,7 +19,7 @@
           </canvas>
         </div>
         <br/>
-        <button ng-click="toggle=!toggle;" class="button button-block button-balanced" id="scan-button">
+        <button ng-click="toggle=!toggle;" class="button button-block button-balanced" id="scan-button"/>
           <span ng-show="toggle">Toon ingrediënten</span>
           <span ng-hide="toggle">Toon voedingsstoffen</span>
       </center>
