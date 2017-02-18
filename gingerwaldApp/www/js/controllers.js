@@ -51,6 +51,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
         console.log(data);
         $rootScope.userToken = data.access_token;
         $state.go('app.main');
+        $scope.data.password = "";
       })
       .catch(function (e) {
         $scope.data.password = "";
@@ -74,8 +75,8 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   $scope.goToDash = function () {
     $state.go('app.dashboard');
   }
-  
-    $scope.goToJotd = function () {
+
+  $scope.goToJotd = function () {
     $state.go('app.jotd');
   }
 
