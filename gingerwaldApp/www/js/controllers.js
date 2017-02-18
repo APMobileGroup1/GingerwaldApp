@@ -187,6 +187,7 @@ angular.module('gingerwald.controllers', ['ionic', 'ngCordova'])
   var datePickerUpdate = function () {
     dashSrv.getUserStats($scope.fromDatepickerObject.inputDate, $scope.toDatepickerObject.inputDate).then(function (data) {
       console.log(data);
+      $scope.amountOfShots = data.Shots.length;
 
       // Get Ingredients
       var labelsI = [];
